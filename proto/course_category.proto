@@ -8,12 +8,11 @@ message Category {
   string description = 3;
 }
 
-message createCategoryRequest {
+message CreateCategoryRequest {
   string name = 1;
   string description = 2;
 }
 
-
 service CategoryService {
-  rpc CreateCategory(createCategoryRequest) returns (Category){};
+  rpc CreateCategory(CreateCategoryRequest) returns (Category){};
 }
