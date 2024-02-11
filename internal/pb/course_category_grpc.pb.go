@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// CateogryServiceClient is the client API for CateogryService service.
+// CategoryServiceClient is the client API for CategoryService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CateogryServiceClient interface {
+type CategoryServiceClient interface {
 	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error)
 }
 
-type cateogryServiceClient struct {
+type categoryServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCateogryServiceClient(cc grpc.ClientConnInterface) CateogryServiceClient {
-	return &cateogryServiceClient{cc}
+func NewCategoryServiceClient(cc grpc.ClientConnInterface) CategoryServiceClient {
+	return &categoryServiceClient{cc}
 }
 
-func (c *cateogryServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error) {
+func (c *categoryServiceClient) CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error) {
 	out := new(CategoryResponse)
-	err := c.cc.Invoke(ctx, "/pb.CateogryService/CreateCategory", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.CategoryService/CreateCategory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// CateogryServiceServer is the server API for CateogryService service.
-// All implementations must embed UnimplementedCateogryServiceServer
+// CategoryServiceServer is the server API for CategoryService service.
+// All implementations must embed UnimplementedCategoryServiceServer
 // for forward compatibility
-type CateogryServiceServer interface {
+type CategoryServiceServer interface {
 	CreateCategory(context.Context, *CreateCategoryRequest) (*CategoryResponse, error)
-	mustEmbedUnimplementedCateogryServiceServer()
+	mustEmbedUnimplementedCategoryServiceServer()
 }
 
-// UnimplementedCateogryServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedCateogryServiceServer struct {
+// UnimplementedCategoryServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedCategoryServiceServer struct {
 }
 
-func (UnimplementedCateogryServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CategoryResponse, error) {
+func (UnimplementedCategoryServiceServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
 }
-func (UnimplementedCateogryServiceServer) mustEmbedUnimplementedCateogryServiceServer() {}
+func (UnimplementedCategoryServiceServer) mustEmbedUnimplementedCategoryServiceServer() {}
 
-// UnsafeCateogryServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CateogryServiceServer will
+// UnsafeCategoryServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CategoryServiceServer will
 // result in compilation errors.
-type UnsafeCateogryServiceServer interface {
-	mustEmbedUnimplementedCateogryServiceServer()
+type UnsafeCategoryServiceServer interface {
+	mustEmbedUnimplementedCategoryServiceServer()
 }
 
-func RegisterCateogryServiceServer(s grpc.ServiceRegistrar, srv CateogryServiceServer) {
-	s.RegisterService(&CateogryService_ServiceDesc, srv)
+func RegisterCategoryServiceServer(s grpc.ServiceRegistrar, srv CategoryServiceServer) {
+	s.RegisterService(&CategoryService_ServiceDesc, srv)
 }
 
-func _CateogryService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _CategoryService_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateCategoryRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CateogryServiceServer).CreateCategory(ctx, in)
+		return srv.(CategoryServiceServer).CreateCategory(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.CateogryService/CreateCategory",
+		FullMethod: "/pb.CategoryService/CreateCategory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CateogryServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
+		return srv.(CategoryServiceServer).CreateCategory(ctx, req.(*CreateCategoryRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// CateogryService_ServiceDesc is the grpc.ServiceDesc for CateogryService service.
+// CategoryService_ServiceDesc is the grpc.ServiceDesc for CategoryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var CateogryService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "pb.CateogryService",
-	HandlerType: (*CateogryServiceServer)(nil),
+var CategoryService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.CategoryService",
+	HandlerType: (*CategoryServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateCategory",
-			Handler:    _CateogryService_CreateCategory_Handler,
+			Handler:    _CategoryService_CreateCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

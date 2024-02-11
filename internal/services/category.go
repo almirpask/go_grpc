@@ -7,16 +7,16 @@ import (
 	"github.com/almirpask/go_grpc/internal/pb"
 )
 
-type CateogryService struct {
-	pb.UnimplementedCateogryServiceServer
+type CategoryService struct {
+	pb.UnimplementedCategoryServiceServer
 	CategoryDB database.Category
 }
 
-func NewCategoryService(categoryDB database.Category) *CateogryService {
-	return &CateogryService{CategoryDB: categoryDB}
+func NewCategoryService(categoryDB database.Category) *CategoryService {
+	return &CategoryService{CategoryDB: categoryDB}
 }
 
-func (c *CateogryService) CreateCategory(ctx context.Context, in *pb.CreateCategoryRequest) (*pb.CategoryResponse, error) {
+func (c *CategoryService) CreateCategory(ctx context.Context, in *pb.CreateCategoryRequest) (*pb.CategoryResponse, error) {
 	category, err := c.CategoryDB.Create(in.Name, in.Description)
 	if err != nil {
 		return nil, err
