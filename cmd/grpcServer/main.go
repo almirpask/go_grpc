@@ -8,6 +8,7 @@ import (
 	"github.com/almirpask/go_grpc/internal/pb"
 	"github.com/almirpask/go_grpc/internal/services"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -20,10 +21,11 @@ func main() {
 
 	categoryDB := database.NewCategory(db)
 	categoryService := services.NewCategoryService(*categoryDB)
-
 	grpcServer := grpc.NewServer()
 
 	pb.RegisterCateogryServiceServer(grpcServer, categoryService)
+
+	reflection.Register(grpcServer)
 
 	lis, err := net.Listen("tcp", ":50051")
 
